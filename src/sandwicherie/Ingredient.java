@@ -8,9 +8,9 @@ public class Ingredient implements Aliment{
 	public Ingredient(String nom) {this.nom = nom;}
 	
 	public void setKcalPour100g(double kcal) throws NiveauCalException{
-		/*if (kcal>1000 || kcal<=0) {
-			throw new NiveauCalException("kcal hors norme !");
-		}*/
+		if (kcal>1000 || kcal<=0) {
+			throw new NiveauCalException("kcal hors norme !" + kcal);
+		}
 		this.kCalPour100g = kcal;
 	}
 
