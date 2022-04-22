@@ -68,7 +68,7 @@ public class Sandwich <P extends Pain,S extends Sauce,I extends Ingredient> impl
     public final boolean ajouterIngredient(I i){
 		if (! accepteIngredient(i))
 			return false; 
-    	assert(this.ingredients.add((I)i));
+    	this.ingredients.add((I)i); 
 		return true; 
     }
 	public final <J extends Ingredient> boolean  deplacerVers(J ingredient, Sandwich<?,?,J> s){
@@ -87,27 +87,25 @@ public class Sandwich <P extends Pain,S extends Sauce,I extends Ingredient> impl
     	Aliment resultat;
     	double plusLourd;
     	
-    	if (sauce == null || Double.compare (sauce.getKcalPour100g(), pain.getKcalPour100g()) > 0) { 
-    		resultat = pain; 
-    		plusLourd = pain.getKcalPour100g();
+    	if (sauce == null || this.getPain().getKcalPour100g() > this.sauce.getKcalPour100g()) { 
+    		resultat = getPain(); 
+    		plusLourd = getPain().getKcalPour100g();
     	}
     	else {
     		resultat = sauce;
     		plusLourd = sauce.getKcalPour100g();
     	}
     	
-    	for(int indice = 0; indice < ingredients.size();indice++) {
-			I i = ingredients.get(indice);
-    		if (i != null && Double.compare (plusLourd, i.getKcalPour100g()) < 0) {
+    	for(I i:getIngredients()) {
+    		if (plusLourd < i.getKcalPour100g()) {
     			plusLourd = i.getKcalPour100g();
     			resultat = i;
     		}
     	}
     	
-    	return resultat; 
+    	return resultat;
     	
     }
-
     //----------------Methode pour iterateur----------------
 	//----------------Pour appeler la fonction elementPlusLourd il faut avoir au max 3 ingredients dans le sandwich---------------
 
@@ -140,7 +138,7 @@ public class Sandwich <P extends Pain,S extends Sauce,I extends Ingredient> impl
     
 	public int valMaxCalElement() {
 		return this.composition().stream()
-				.mapToInt(v -> (int) v.getKcalPour100g())
+				.mapToInt(v -> v == null ? -1 : (int) v.getKcalPour100g())
 				.max().getAsInt();
 	}
 	

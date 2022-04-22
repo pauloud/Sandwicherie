@@ -75,10 +75,13 @@ public class Test {
 		
 		
 		//----test methode element plus lourd avec iterateur, stream et sans iterateur ou stream----
-		assert(sandwichQuelconque.elementPlusLourd()==saumon); 
+		System.out.println(sandwichQuelconque.nombreIngredients()); 
 		System.out.println(sandwichQuelconque.elementPlusLourd().getNom()); 
-		System.out.println(saumon.getNom());
+		System.out.println(saumon.getNom());/*pas d'assertion ici
+		car on peut changer les calories pour tester d'autres valeurs*/
 		System.out.println(saumon.getClass());
+		sandwichQuelconque.elementPlusLourdAvecIterateur();
+		sandwichQuelconque.elementPlusLourdAvecStream();
 
 		//----fin test----
 		
